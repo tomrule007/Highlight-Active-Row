@@ -1,0 +1,9 @@
+{
+  "name": "highlight-active-row",
+  "version": "1.0.0",
+  "description": "chrome extension to make a selected table row more visible.",
+  "main": "index.js",
+  "author": "Thomas Herzog",
+  "license": "MIT",
+  "private": true
+}
