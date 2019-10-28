@@ -1,13 +1,20 @@
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({ color: '#3aa757' }, function() {
-    console.log('The color is green.');
+  let defaultStyle = {
+    backgroundColor: '#FFFF00',
+    scale: 1.05,
+    bold: true,
+    borderColor: '#000000',
+    borderSize: 5
+  };
+  chrome.storage.sync.set(defaultStyle, function() {
+    console.log('style: ', defaultStyle);
   });
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([
       {
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostEquals: 'developer.chrome.com' }
+            pageUrl: { schemes: ['http', 'https'] }
           })
         ],
         actions: [new chrome.declarativeContent.ShowPageAction()]

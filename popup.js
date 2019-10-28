@@ -1,14 +1,14 @@
 let changeColor = document.getElementById('changeColor');
-
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
+let save = document.getElementById('save');
+let reset = document.getElementById('reset');
+chrome.storage.sync.get('defaultStyle', function(data) {
+  console.log('popup style: ', data.defaultStyle);
 });
-changeColor.onclick = function(element) {
-  let color = element.target.value;
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    chrome.tabs.executeScript(tabs[0].id, {
-      code: 'document.body.style.backgroundColor = "' + color + '";'
-    });
-  });
+
+save.onClick = function saveSettings() {
+  console.log('saveSettings');
+};
+
+reset.onClick = function resetSettings() {
+  console.log('resetSettings');
 };

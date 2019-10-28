@@ -7,7 +7,13 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "options_page": "options.html",
+  "web_accessible_resources": ["rowHighlighter.js"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ],
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
