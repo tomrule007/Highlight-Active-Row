@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      h1 {
+        text-align: center;
+        margin: 1em auto 0;
+      }
+      h2,
+      p,
+      a {
+        display: block;
+        text-align: center;
+        margin: 1em auto;
+      }
+
+      table {
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      button {
+        margin: 1em auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Highlight-Active-Row</h1>
+    <p>
+      created by: Thomas Herzog
+    </p>
+    <a href="http://www.thomasJHerzog.com">www.thomsaJHerzog.com</a>
+    <hr />
+    <h2>Row Highlight Style</h2>
+    <table>
+      <thead>
+        <th>enable</th>
+        <th>Description</th>
+        <th>setting</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>Background Color</td>
+          <td>
+            <input id="backgroundColor" type="color" />
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>Scale</td>
+          <td>
+            <input
+              id="scale"
+              type="number"
+              min="1"
+              max="2"
+              step=".01"
+              value="1"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>Bold Font</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>Border Color</td>
+          <td><input type="color" id="borderColor" /></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>Border size</td>
+          <td>
+            <input
+              type="number"
+              id="borderSize"
+              min="1"
+              max="20"
+              step="1"
+              value="5"
+            />
+            px
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="resetSettings">RESET SETTINGS</button>
+    <hr />
+    <div style="visibility: hidden;">
+      <h2>Allowed Websites</h2>
+      <div id="allowedWebsites"></div>
+      <button id="clearWebsites">CLEAR ALLOWED</button>
+    </div>
+    <script src="options.js"></script>
+  </body>
+</html>

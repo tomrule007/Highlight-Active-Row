@@ -8,6 +8,7 @@
     "persistent": false
   },
   "web_accessible_resources": ["rowHighlighter.js"],
+  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
