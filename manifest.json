@@ -10,10 +10,9 @@
     }
   ],
   "icons": {
-    "16": "images/row_highlight_icon16.png",
-    "32": "images/row_highlight_icon32.png",
-    "48": "images/row_highlight_icon48.png",
-    "128": "images/row_highlight_icon128.png"
+    "16": "highlightActiveRowIcon16.png",
+    "48": "highlightActiveRowIcon48.png",
+    "128": "highlightActiveRowIcon128.png"
   },
 
   "manifest_version": 2
