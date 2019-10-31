@@ -1,4 +1,4 @@
-console.log('rowHighlighter Injected!');
+console.log('highlight-active-row: rowHighlighter Injected!');
 
 // Attach focus/blur listeners to all 'inputs' in a 'table'
 [...document.querySelectorAll('table input')].forEach(tableInput => {
@@ -28,7 +28,9 @@ function getRowNode(el) {
     }
     curEl && (curEl = curEl.parentNode);
     if (MAX_DEPTH === i + 1)
-      console.log('Unable to find Row Element. Increase MAX_DEPTH');
+      console.log(
+        'highlight-active-row: Unable to find Row Element. Increase MAX_DEPTH'
+      );
   }
   return rowNode;
 }
