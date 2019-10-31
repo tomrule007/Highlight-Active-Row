@@ -1,9 +1,5 @@
 console.log('rowHighlighter Injected!');
 
-// TODO: figure out how to sync style with background.js chrome.storage
-const style =
-  'font-weight: bold;transform: scale(1.05); background-color: yellow; outline: thin solid';
-
 // Attach focus/blur listeners to all 'inputs' in a 'table'
 [...document.querySelectorAll('table input')].forEach(tableInput => {
   tableInput.addEventListener('focus', onFocus);
@@ -11,11 +7,14 @@ const style =
 });
 
 function onFocus(event) {
-  setRowStyle(getRowNode(event.target), style);
+  setStyle(
+    getRowNode(event.target),
+    'font-weight: bold;transform: scale(1.05); background-color: yellow; outline: thin solid'
+  );
 }
 
 function onBlur(event) {
-  setRowStyle(getRowNode(event.target), '');
+  setStyle(getRowNode(event.target), '');
 }
 
 function getRowNode(el) {
@@ -28,17 +27,12 @@ function getRowNode(el) {
       break;
     }
     curEl && (curEl = curEl.parentNode);
+    if (MAX_DEPTH === i + 1)
+      console.log('Unable to find Row Element. Increase MAX_DEPTH');
   }
   return rowNode;
 }
 
-function setRowStyle(rowNode, style) {
-  rowNode && (rowNode.style.cssText = style);
-}
-
-// TODO: might be a solution to syncing style settings with background.js
-document.addEventListener('rowHighlighterStyleUpdate', setStyle);
-
-function setStyle(event) {
-  console.log('updating style: ', event);
+function setStyle(el, style) {
+  el && (el.style.cssText = style);
 }
