@@ -1,20 +1,18 @@
 console.log('highlight-active-row: rowHighlighter Injected!');
 
-// Attach focus/blur listeners to all 'inputs' in a 'table'
-[...document.querySelectorAll('table input')].forEach(tableInput => {
-  tableInput.addEventListener('focus', onFocus);
-  tableInput.addEventListener('blur', onBlur);
-});
+// Attach focusin/focusout listeners to the document;
+document.addEventListener('focusin', onFocusIn, true);
+document.addEventListener('focusout', onFocusOut, true);
 
-function onFocus(event) {
+function onFocusIn({ target }) {
   setStyle(
-    getRowNode(event.target),
+    getRowNode(target),
     'font-weight: bold;transform: scale(1.05); background-color: yellow; outline: thin solid'
   );
 }
 
-function onBlur(event) {
-  setStyle(getRowNode(event.target), '');
+function onFocusOut({ target }) {
+  setStyle(getRowNode(target), '');
 }
 
 function getRowNode(el) {
