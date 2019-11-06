@@ -7,7 +7,7 @@ document.addEventListener('focusout', onFocusOut, true);
 function onFocusIn({ target }) {
   setStyle(
     getRowNode(target),
-    'font-weight: bold;transform: scale(1.05); background-color: yellow; outline: thin solid'
+    'font-weight: bold; background-color: yellow; outline: thin solid'
   );
 }
 
