@@ -1,0 +1,19 @@
+div.main {
+  margin: 0 auto;
+  width: 90%;
+}
+
+button {
+  margin: 10px;
+}
+table {
+  width: 100%;
+}
+tr {
+  height: 1em;
+  background-color: lightgray;
+}
+
+tr:nth-child(2n + 1) {
+  background-color: lightslategray;
+}
