@@ -10,9 +10,9 @@ Chrome Web Store Link: [Highlight Active Row](https://chrome.google.com/webstore
 
 1. clone the repo:
    In the terminal navigate to desired install directory and type the following command:
-   ```
-   $git clone https://github.com/tomrule007/Highlight-Active-Row.git
-   ```
+
+   `$git clone https://github.com/tomrule007/Highlight-Active-Row.git`
+
 2. Open Chrome and navigate to the extensions settings page: [chrome://extensions](chrome://extensions)
 3. Turn on 'Developer mode' by clicking the toggle switch in the upper right hand corner.
 4. Now select 'Load unpacked' in the upper left hand corner and navigate to the cloned repo folder and select open.
@@ -24,22 +24,22 @@ The extension should now be loaded! You can serve the included webpage in the te
 
 ---
 
-### How the extension works:
+## How the extension works
 
 The extension injects a small script that adds a 'focusin'/'focusout' event listener to the root document object.
 
-When the 'focusin' event fires it starts at the event.target and traverses the DOM in search of a <tr> parent element. If <tr> is found it sets the inline style to a preset highlight style.
+When the 'focusin' event fires it starts at the event.target and traverses the DOM in search of a '`<tr>`' parent element. If a '`<tr>`' is found it sets the inline style to a preset highlight style.
 
-When the 'focusout' event fires it starts at the event.target and traverses the DOM in search of a <tr> parent element. If <tr> is found it clears the inline style.
+When the 'focusout' event fires it starts at the event.target and traverses the DOM in search of a '`<tr>`' parent element. If a '`<tr>`' is found it clears the inline style.
 
-\*\* Currently has a hard set MAX_DEPTH of 5 which limits how many parents it check before stopping. This should prevent all unnecessary DOM traversing for nodes not connected to a table, but also allow some wiggle room if the input is in a <div> or two.
+\*\* Currently has a hard set MAX_DEPTH of 5 which limits how many parents it check before stopping. This should prevent all unnecessary DOM traversing for nodes not connected to a table, but also allow some wiggle room if the input is in a '`<div>`' or two.
 
-### Future features:
+## Future features
 
 - add an options page that allows the user to set a custom highlight style
 - allow the user to enable/disable the extension for each website domain
 
-### Version History:
+## Version History
 
 - 1.1.0: Switched to focusin/focusout events & delegation which works with dynamically added content.
 - 1.0.0: Event listener were attached to each input element on load & didn't work with dynamically added content.
