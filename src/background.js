@@ -115,7 +115,7 @@ async function handleClick({ wasChecked, menuItemId }, tab) {
         checked: false
       });
     }
-    if (!wasChecked && successful && globalOptions.reloadOnSuccess) {
+    if (!wasChecked && successful) {
       chrome.tabs.executeScript({
         code: `confirm(${JSON.stringify(
           reloadOnSuccessMsg
