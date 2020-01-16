@@ -1,7 +1,5 @@
 ('use strict');
-
 const { name, version } = chrome.runtime.getManifest();
-let currentTabId;
 
 chrome.browserAction.setBadgeBackgroundColor({ color: '#F00' }); // sets default badge color to red
 chrome.browserAction.disable(); //Makes left click behave like a right click and open the context menu
@@ -21,7 +19,7 @@ const setBrowserActionView = (setEnabled, tabId) => {
 
   const { title, badgeText, iconPath } = setEnabled ? enabled : disabled;
 
-  chrome.browserAction.setTitle({ tabId, title });
+  chrome.browserAction.setTitle({ title, tabId });
   chrome.browserAction.setIcon({ path: iconPath, tabId });
   chrome.browserAction.setBadgeText({ text: badgeText, tabId });
 };
@@ -29,6 +27,11 @@ const setBrowserActionView = (setEnabled, tabId) => {
  * Adapted from webext-domain-permission-toggle
  * https://github.com/fregante/webext-domain-permission-toggle @ v1.0.0
  */
+const contextMenuId = 'webext-domain-permission-toggle:add-permission';
+let currentTabId;
+
+const contextMenuTitle = `Enable ${name} on this domain`;
+const reloadOnSuccessMsg = `Do you want to reload this page to apply ${name}?`;
 
 async function getManifestPermissions() {
   const manifest = chrome.runtime.getManifest();
@@ -49,9 +52,7 @@ async function getManifestPermissions() {
   }
   return manifestPermissions;
 }
-
-const contextMenuId = 'webext-domain-permission-toggle:add-permission';
-let globalOptions;
+// Promisify built in global chrome extension api
 async function p(fn, ...args) {
   return new Promise((resolve, reject) => {
     fn(...args, result => {
@@ -68,19 +69,7 @@ async function isOriginPermanentlyAllowed(origin) {
     origins: [origin + '/*']
   });
 }
-function createMenu() {
-  chrome.contextMenus.remove(contextMenuId, () => chrome.runtime.lastError);
-  chrome.contextMenus.create({
-    id: contextMenuId,
-    type: 'checkbox',
-    checked: false,
-    title: globalOptions.title,
-    contexts: ['page_action', 'browser_action'],
-    documentUrlPatterns: ['http://*/*', 'https://*/*']
-  });
-}
 function updateItem({ tabId }) {
-  console.log('updating..', tabId);
   currentTabId = tabId;
   chrome.tabs.executeScript(
     tabId,
@@ -105,9 +94,7 @@ function updateItem({ tabId }) {
       setBrowserActionView(settings.checked, tabId);
 
       if (settings.checked) {
-        chrome.tabs.executeScript(tabId, {
-          file: 'contentScript.js'
-        });
+        chrome.tabs.executeScript(tabId, { file: 'contentScript.js' });
       }
     }
   );
@@ -131,30 +118,31 @@ async function handleClick({ wasChecked, menuItemId }, tab) {
     if (!wasChecked && successful && globalOptions.reloadOnSuccess) {
       chrome.tabs.executeScript({
         code: `confirm(${JSON.stringify(
-          globalOptions.reloadOnSuccess
+          reloadOnSuccessMsg
         )}) && location.reload()`
       });
     }
   } catch (error) {
     console.error(error.message);
-    alert(`Error: ${error.message}`);
     updateItem({ tabId: tab.id });
   }
 }
-function addDomainPermissionToggle(options) {
-  globalOptions = {
-    title: `Enable ${name} on this domain`,
-    reloadOnSuccess: `Do you want to reload this page to apply ${name}?`,
-    ...options
-  };
-  chrome.contextMenus.onClicked.addListener(handleClick);
-  chrome.tabs.onActivated.addListener(updateItem);
-  chrome.tabs.onUpdated.addListener((tabId, { status }) => {
-    if (currentTabId === tabId && status === 'complete') {
-      updateItem({ tabId });
-    }
-  });
-  createMenu();
-}
 
-addDomainPermissionToggle();
+// Add tab change event listeners
+chrome.contextMenus.onClicked.addListener(handleClick);
+chrome.tabs.onActivated.addListener(updateItem);
+chrome.tabs.onUpdated.addListener((tabId, { status }) => {
+  if (currentTabId === tabId && status === 'complete') {
+    updateItem({ tabId });
+  }
+});
+
+// Create Menu
+chrome.contextMenus.create({
+  id: contextMenuId,
+  type: 'checkbox',
+  checked: false,
+  title: contextMenuTitle,
+  contexts: ['page_action', 'browser_action'],
+  documentUrlPatterns: ['http://*/*', 'https://*/*']
+});
