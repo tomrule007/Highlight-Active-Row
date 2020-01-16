@@ -8,13 +8,14 @@ When the 'focusin' event fires it starts at the event.target and traverses the D
 
 When the 'focusout' event fires it starts at the event.target and traverses the DOM in search of a  <tr> parent element. If <tr> is found it clears the inline style.
 
-** Currently has a hard set MAX_DEPTH of 5 which limits how many parents it check before stopping. This should prevent all unnecessary DOM traversing for nodes not connected to a table, but also allow some wiggle room if the input is in a <div> or two.
+Extra Details:
+* The extension needs to be enabled the first time you visit a new website by clicking the extension icon and selecting `Enable Highlight Active Row on this domain` from the context menu. This allows the user to only run the extension on select websites.
+* Currently has a hard set MAX_DEPTH of 5 which limits how many parents it check before stopping. This should prevent all unnecessary DOM traversing for nodes not connected to a table, but also allow some wiggle room if the input is in a <div> or two.
 
 Future features:
->add an options page that allows the user to set a custom highlight style
->allow the user to enable/disable the extension for each website domain
-
+- add an options page that allows the user to set a custom highlight style
 
 Version History:
+1.2.0: Allow the user to enable/disable the extension for each website domain
 1.1.0: Switched to focusin/focusout events & delegation which works with dynamically added content.
 1.0.0: Event listener were attached to each input element on load & didn't work with dynamically added content.
