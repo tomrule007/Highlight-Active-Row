@@ -1,40 +1,29 @@
-(function() {
-  console.log('highlight-active-row: rowHighlighter Injected!');
+const defaultStyle = '';
+const highlightStyle =
+  'font-weight: bold; background-color: yellow; outline: thin solid';
 
-  // Attach focusin/focusout listeners to the document;
-  document.addEventListener('focusin', onFocusIn, true);
-  document.addEventListener('focusout', onFocusOut, true);
+const getRowNode = el => {
+  const MAX_DEPTH = 5;
+  let curEl = el;
+  for (let i = 0; i < MAX_DEPTH; i++) {
+    if (!curEl) return null;
+    if (curEl.tagName === 'TR') return curEl;
 
-  function onFocusIn({ target }) {
-    setStyle(
-      getRowNode(target),
-      'font-weight: bold; background-color: yellow; outline: thin solid'
-    );
+    curEl = curEl.parentNode;
   }
+  console.log(
+    'highlight-active-row: Unable to find Row Element. Increase MAX_DEPTH'
+  );
+  return null;
+};
 
-  function onFocusOut({ target }) {
-    setStyle(getRowNode(target), '');
-  }
+const setStyle = (style, el) => {
+  if (el) el.style.cssText = style;
+};
 
-  function getRowNode(el) {
-    const MAX_DEPTH = 5;
-    let rowNode;
-    let curEl = el;
-    for (let i = 0; i < MAX_DEPTH; i++) {
-      if (curEl && curEl.tagName === 'TR') {
-        rowNode = curEl;
-        break;
-      }
-      curEl && (curEl = curEl.parentNode);
-      if (MAX_DEPTH === i + 1)
-        console.log(
-          'highlight-active-row: Unable to find Row Element. Increase MAX_DEPTH'
-        );
-    }
-    return rowNode;
-  }
+const setRowStyle = style => ({ target }) =>
+  setStyle(style, getRowNode(target));
 
-  function setStyle(el, style) {
-    el && (el.style.cssText = style);
-  }
-})();
+// Attach focusin/focusout listeners to the document;
+document.addEventListener('focusin', setRowStyle(highlightStyle), true);
+document.addEventListener('focusout', setRowStyle(defaultStyle), true);
