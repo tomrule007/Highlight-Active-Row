@@ -2,7 +2,6 @@
   "name": "Highlight Active Row",
   "version": "1.1.0",
   "description": "Makes the currently selected table row more visible.",
-  "web_accessible_resources": ["rowHighlighter.js"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
@@ -10,9 +9,9 @@
     }
   ],
   "icons": {
-    "16": "highlightActiveRowIcon16.png",
-    "48": "highlightActiveRowIcon48.png",
-    "128": "highlightActiveRowIcon128.png"
+    "16": "./images/highlightActiveRowIcon16.png",
+    "48": "./images/highlightActiveRowIcon48.png",
+    "128": "./images/highlightActiveRowIcon128.png"
   },
 
   "manifest_version": 2
