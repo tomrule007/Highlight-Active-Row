@@ -32,7 +32,9 @@ When the 'focusin' event fires it starts at the event.target and traverses the D
 
 When the 'focusout' event fires it starts at the event.target and traverses the DOM in search of a '`<tr>`' parent element. If a '`<tr>`' is found it clears the inline style.
 
-\*\* Currently has a hard set MAX_DEPTH of 5 which limits how many parents it check before stopping. This should prevent all unnecessary DOM traversing for nodes not connected to a table, but also allow some wiggle room if the input is in a '`<div>`' or two.
+### Limitations
+
+Currently has a hard set MAX_DEPTH of 5 which limits how many parents it check before stopping. This should prevent all unnecessary DOM traversing for nodes not connected to a table, but also allow some wiggle room if the input is in a '`<div>`' or two.
 
 ## Future features
 
