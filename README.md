@@ -43,6 +43,7 @@ When the 'focusout' event fires it starts at the event.target and traverses the 
 
 ## Version History
 
+- 1.2.1: Fixed bug that required user to reload the extension on page changes.
 - 1.2.0: Allow the user to enable/disable the extension for each website domain
 - 1.1.0: Switched to focusin/focusout events & delegation which works with dynamically added content.
 - 1.0.0: Event listener were attached to each input element on load & didn't work with dynamically added content.

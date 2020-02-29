@@ -1,6 +1,6 @@
 {
   "name": "Highlight Active Row",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Makes the currently selected table row more visible.",
   "permissions": ["contextMenus", "activeTab"],
   "optional_permissions": ["http://*/*", "https://*/*"],
