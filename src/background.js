@@ -138,11 +138,13 @@ chrome.tabs.onUpdated.addListener((tabId, { status }) => {
 });
 
 // Create Menu
-chrome.contextMenus.create({
-  id: contextMenuId,
-  type: 'checkbox',
-  checked: false,
-  title: contextMenuTitle,
-  contexts: ['page_action', 'browser_action'],
-  documentUrlPatterns: ['http://*/*', 'https://*/*']
+chrome.runtime.onInstalled.addListener(function() {
+  chrome.contextMenus.create({
+    id: contextMenuId,
+    type: 'checkbox',
+    checked: false,
+    title: contextMenuTitle,
+    contexts: ['page_action', 'browser_action'],
+    documentUrlPatterns: ['http://*/*', 'https://*/*']
+  });
 });
